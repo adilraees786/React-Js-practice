@@ -8,18 +8,18 @@ const Mainscreen = () => {
   const { allCategories, isLoading, error, fetchCategorieData } = GetCategories();
   const { Products, fetchProductData } = getProducts();
 
-  const [selectedCategory, setSelectedCategory] = useState(null); // Step 1
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     fetchCategorieData();
     fetchProductData();
   }, []);
 
-  // Step 2: Filter products based on selected category
   const filteredProducts = selectedCategory
     ? Products.filter((item) => item.category.name === selectedCategory)
     : Products;
 
+    console.log(filteredProducts,"filteredProducts")
   return (
     <div className="w-full px-4 py-6">
       {isLoading ? (
@@ -54,13 +54,13 @@ const Mainscreen = () => {
               {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
                 filteredProducts.map((item) => (
                   <div
-                    key={item.id}
-                    className="bg-white p-2 rounded shadow hover:bg-gray-500 "
+                    key={item?.id}
+                    className="bg-white p-2 rounded shadow hover:bg-gray-300 "
                   >
                     <Card
-                      image={item.category.image}
-                      title={item.title}
-                      price={item.price}
+                      image={item?.images[0]}
+                      title={item?.title}
+                      price={item?.price}
                     />
                   </div>
                 ))
