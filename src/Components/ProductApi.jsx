@@ -5,10 +5,10 @@ import Card from '../ReusableComponents/Cards';
 
 
 const ProductApi = () => {
-const {  Products, isLoading, error, fetchData} =getProducts();
+const {  Products, isLoading, error,  fetchProductData} =getProducts();
 
   useEffect(() => {
-    fetchData();
+     fetchProductData();
   }, []);
 
   console.log("====", Products);

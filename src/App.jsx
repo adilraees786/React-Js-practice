@@ -1,14 +1,23 @@
-import React from 'react'
 
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Store from './Screens/Store'
+import DashboardLayout from "./DashboardLayout/DashboardLayout";
+import { routelist } from "./Routes/Route";
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-<Store/>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+     
+          <Route element={<DashboardLayout />} >
+                {routelist.map(({ path, element }) => (
+                  <Route key={path} path={path} element={element} />
+                ))}
+              </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+
