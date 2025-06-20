@@ -2,7 +2,7 @@
 import React from 'react'
 import logo from '../../src/assets/images/logo.png';
 import { FaShoppingCart } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useCartStore } from '../Zustand/CartStore';
 
 
