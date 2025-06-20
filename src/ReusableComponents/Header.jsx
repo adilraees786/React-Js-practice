@@ -1,3 +1,4 @@
+
 import React from 'react'
 import logo from '../../src/assets/images/logo.png';
 import { FaShoppingCart } from "react-icons/fa";
@@ -6,10 +7,12 @@ import { useCartStore } from '../Zustand/CartStore';
 
 
 const Header = () => {
-  // const products = useSelector(state => state.cart.products);
+
   const navigate = useNavigate();
   const { cart } = useCartStore();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  
   return (
     <div className="bg-white">
       <div className="mx-auto flex  max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">

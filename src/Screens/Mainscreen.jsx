@@ -1,16 +1,17 @@
 
-
-// import React, { Component, useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 // import Card from '../ReusableComponents/Cards';
 // import { GetCategories, getProducts } from '../Zustand/Api';
 // import { useNavigate } from 'react-router-dom';
 // import Button from '../ReusableComponents/Button';
+// import { useCartStore } from '../Zustand/CartStore';
 
 // const Mainscreen = () => {
-//      const navigate = useNavigate()
+//   const navigate = useNavigate();
 //   const { allCategories, isLoading, error, fetchCategorieData } = GetCategories();
 //   const { Products, fetchProductData } = getProducts();
 
+//   const { addToCart } = useCartStore();
 //   const [selectedCategory, setSelectedCategory] = useState(null);
 
 //   useEffect(() => {
@@ -22,73 +23,63 @@
 //     ? Products.filter((item) => item.category.name === selectedCategory)
 //     : Products;
 
-//   console.log(filteredProducts, "filteredProducts")
-
-// const handlecart=()=>{
-//   navigate('/cart')
-// }
+//   const handleAddToCart = (item) => {
+//     addToCart(item);
+  
+  
+//   };
 
 //   return (
 //     <div className="w-full px-4 py-6">
 //       {isLoading ? (
-//         <p>Loading...</p>
+//         <p className="text-center text-gray-500">Loading...</p>
 //       ) : error ? (
-//         <p className="text-red-600">Error: {error}</p>
+//         <p className="text-center text-red-500">Error: {error}</p>
 //       ) : (
-//         <div className="space-y-6">
-//           <div className="grid grid-cols-5 gap-1 items-start">
-//             {/* Category List */}
-//             <div className="col-span-1">
-//               <h1
-//                 onClick={() => setSelectedCategory(null)}
-//                 className={`font-medium cursor-pointer px-4 py-2 rounded-2xl ${selectedCategory === null ? 'bg-blue-500 text-white' : ''}`}
-//               >
-//                 All
-//               </h1>
+//         <div className="grid grid-cols-5 gap-4">
+//           {/* Sidebar */}
+//           <div className="col-span-1">
+//             <h1
+//               onClick={() => setSelectedCategory(null)}
+//               className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === null ? 'bg-blue-500 text-white' : ''}`}
+//             >
+//               All
+//             </h1>
+//             {Array.isArray(allCategories) && allCategories.length > 0 ? (
+//               allCategories.map((category, index) => (
+//                 <div key={index}>
+//                   <h2
+//                     onClick={() => setSelectedCategory(category.name)}
+//                     className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''}`}
+//                   >
+//                     {category.name}
+//                   </h2>
+//                 </div>
+//               ))
+//             ) : (
+//               <p className="text-sm text-gray-500">No categories found.</p>
+//             )}
+//           </div>
 
-//               {Array.isArray(allCategories) && allCategories.length > 0 ? (
-//                 allCategories.map((category, index) => (
-//                   <div key={index} className="flex flex-col gap-y-2">
-//                     <h2
-//                       onClick={() => setSelectedCategory(category.name)}
-//                       className={`font-medium cursor-pointer px-4 py-2 rounded-2xl ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''
-//                         }`}
-//                     >
-//                       {category.name}
-//                     </h2>
-
-//                   </div>
-//                 ))
-//               ) : (
-//                 <p>No categories found.</p>
-//               )}
-//             </div>
-
-//             {/* Product List */}
+//           {/* Product Grid */}
 //           <div className="col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-//   {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
-//     filteredProducts.map((item) => (
-//       <div
-//         key={item?.id}
-//         className="bg-white p-2 rounded  flex flex-col justify-between"
-//       >
-//         <div onClick={handlecart} className="cursor-pointer">
-//           <Card
-//             image={item?.images[0]}
-//             title={item?.title}
-//             price={item?.price}
-//           />
-//         </div>
-//         <div className="mt-2">
-//           <Button>Add to cart</Button>
-//         </div>
-//       </div>
-//     ))
-//   ) : (
-//     <p className="col-span-full">No products found for this category.</p>
-//   )}
-// </div>
-
+//             {filteredProducts.length > 0 ? (
+//               filteredProducts.map((item) => (
+//                 <div
+//                   key={item?.id}
+//                   className="bg-white rounded-xl shadow p-3 flex flex-col justify-between hover:shadow-lg transition"
+//                 >
+//                   <div className="cursor-pointer" onClick={() => navigate('/cart-details')}>
+//                     <Card image={item?.images[0]} title={item?.title} price={item?.price} />
+//                   </div>
+//                   <div className="mt-3">
+//                     <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
+//                   </div>
+//                 </div>
+//               ))
+//             ) : (
+//               <p className="col-span-full text-center text-gray-600">No products found for this category.</p>
+//             )}
 //           </div>
 //         </div>
 //       )}
@@ -97,14 +88,14 @@
 // };
 
 // export default Mainscreen;
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Card from '../ReusableComponents/Cards';
 import { GetCategories, getProducts } from '../Zustand/Api';
 import { useNavigate } from 'react-router-dom';
 import Button from '../ReusableComponents/Button';
 import { useCartStore } from '../Zustand/CartStore';
+import { useCategoryStore } from '../Zustand/StateStore';
+
 
 const Mainscreen = () => {
   const navigate = useNavigate();
@@ -112,7 +103,7 @@ const Mainscreen = () => {
   const { Products, fetchProductData } = getProducts();
 
   const { addToCart } = useCartStore();
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { selectedCategory, setSelectedCategory } = useCategoryStore(); 
 
   useEffect(() => {
     fetchCategorieData();
@@ -125,8 +116,6 @@ const Mainscreen = () => {
 
   const handleAddToCart = (item) => {
     addToCart(item);
-    alert("Add")
-  
   };
 
   return (
@@ -141,7 +130,9 @@ const Mainscreen = () => {
           <div className="col-span-1">
             <h1
               onClick={() => setSelectedCategory(null)}
-              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === null ? 'bg-blue-500 text-white' : ''}`}
+              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${
+                selectedCategory === null ? 'bg-blue-500 text-white' : ''
+              }`}
             >
               All
             </h1>
@@ -150,7 +141,9 @@ const Mainscreen = () => {
                 <div key={index}>
                   <h2
                     onClick={() => setSelectedCategory(category.name)}
-                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''}`}
+                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${
+                      selectedCategory === category.name ? 'bg-blue-500 text-white' : ''
+                    }`}
                   >
                     {category.name}
                   </h2>
@@ -169,8 +162,15 @@ const Mainscreen = () => {
                   key={item?.id}
                   className="bg-white rounded-xl shadow p-3 flex flex-col justify-between hover:shadow-lg transition"
                 >
-                  <div className="cursor-pointer" onClick={() => navigate('/cart-details')}>
-                    <Card image={item?.images[0]} title={item?.title} price={item?.price} />
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => navigate('/cart-details')}
+                  >
+                    <Card
+                      image={item?.images[0]}
+                      title={item?.title}
+                      price={item?.price}
+                    />
                   </div>
                   <div className="mt-3">
                     <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
@@ -178,7 +178,9 @@ const Mainscreen = () => {
                 </div>
               ))
             ) : (
-              <p className="col-span-full text-center text-gray-600">No products found for this category.</p>
+              <p className="col-span-full text-center text-gray-600">
+                No products found for this category.
+              </p>
             )}
           </div>
         </div>
@@ -188,3 +190,4 @@ const Mainscreen = () => {
 };
 
 export default Mainscreen;
+
