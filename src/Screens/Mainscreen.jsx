@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../ReusableComponents/Button';
 import { useCartStore } from '../Zustand/CartStore';
 import { useCategoryStore } from '../Zustand/CategoryStore';
+import { toast } from 'react-toastify';
 
 const Mainscreen = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Mainscreen = () => {
 
   const handleAddToCart = (item) => {
     addToCart(item);
+
   };
 
 
@@ -73,7 +75,7 @@ const Mainscreen = () => {
                 >
                   <div
                     className="cursor-pointer"
-                     onClick={() => navigate('/cart-details')}
+                    //  onClick={() => navigate('/cart-details')}
                  
                   >
                     <Card
