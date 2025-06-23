@@ -7,15 +7,13 @@ import Button from '../ReusableComponents/Button';
 import { useCartStore } from '../Zustand/CartStore';
 import { useCategoryStore } from '../Zustand/CategoryStore';
 
-
-
 const Mainscreen = () => {
   const navigate = useNavigate();
   const { allCategories, isLoading, error, fetchCategorieData } = GetCategories();
   const { Products, fetchProductData } = getProducts();
 
   const { addToCart } = useCartStore();
-  const { selectedCategory, setSelectedCategory } = useCategoryStore(); 
+  const { selectedCategory, setSelectedCategory } = useCategoryStore();
 
   useEffect(() => {
     fetchCategorieData();
@@ -30,6 +28,7 @@ const Mainscreen = () => {
     addToCart(item);
   };
 
+
   return (
     <div className="w-full px-4 py-6">
       {isLoading ? (
@@ -42,9 +41,8 @@ const Mainscreen = () => {
           <div className="col-span-1">
             <h1
               onClick={() => setSelectedCategory(null)}
-              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${
-                selectedCategory === null ? 'bg-blue-500 text-white' : ''
-              }`}
+              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === null ? 'bg-blue-500 text-white' : ''
+                }`}
             >
               All
             </h1>
@@ -53,9 +51,8 @@ const Mainscreen = () => {
                 <div key={index}>
                   <h2
                     onClick={() => setSelectedCategory(category.name)}
-                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${
-                      selectedCategory === category.name ? 'bg-blue-500 text-white' : ''
-                    }`}
+                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''
+                      }`}
                   >
                     {category.name}
                   </h2>
@@ -76,7 +73,8 @@ const Mainscreen = () => {
                 >
                   <div
                     className="cursor-pointer"
-                    onClick={() => navigate('/cart-details')}
+                     onClick={() => navigate('/cart-details')}
+                 
                   >
                     <Card
                       image={item?.images[0]}
@@ -102,4 +100,3 @@ const Mainscreen = () => {
 };
 
 export default Mainscreen;
-
