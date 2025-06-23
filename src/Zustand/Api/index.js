@@ -28,7 +28,7 @@ export const Handmade = create((set) => ({
     isLoading: false,
     error: null,
 
-    fetchData: async () => {
+    fetchhandmadeData: async () => {
         set({ isLoading: true });
         try {
             const response = await fetch(`${baseUrl}/products/slug/handmade-fresh-table`);
