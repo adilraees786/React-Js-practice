@@ -43,7 +43,7 @@ const Header = () => {
           </nav>
 
         <div className="relative" onClick={() => navigate('/cart')}>
-      <FaShoppingCart size={40} className="text-lg cursor-pointer" />
+      <FaShoppingCart size={40} className="text-lg cursor-pointer " />
       {totalItems > 0 && (
         <span className="absolute -top-1 left-5 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex justify-center items-center">
           {totalItems}

@@ -22,7 +22,7 @@ const CartDetail = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-white py-12 px-6  lg:px-32">
+    <div className="w-full  bg-white py-12 px-6  lg:px-32">
       <h1 className="text-4xl font-extrabold text-gray-800 mb-12 text-center uppercase tracking-wider">
         Product Detail
       </h1>
