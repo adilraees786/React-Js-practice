@@ -14,7 +14,7 @@ const Header = () => {
 
   
   return (
-    <div className="bg-white">
+    <div className="bg-white  sticky top-0  z-999  ">
       <div className="mx-auto flex  max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
         <a className="block text-teal-600" href="#">
           <div className=' flex gap-2'>

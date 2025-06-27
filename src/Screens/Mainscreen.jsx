@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../ReusableComponents/Button';
 import { useCartStore } from '../Zustand/CartStore';
 import { useCategoryStore } from '../Zustand/CategoryStore';
-import { toast } from 'react-toastify';
 
 const Mainscreen = () => {
   const navigate = useNavigate();
@@ -27,9 +26,7 @@ const Mainscreen = () => {
 
   const handleAddToCart = (item) => {
     addToCart(item);
-
   };
-
 
   return (
     <div className="w-full px-4 py-6">
@@ -43,8 +40,7 @@ const Mainscreen = () => {
           <div className="col-span-1">
             <h1
               onClick={() => setSelectedCategory(null)}
-              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === null ? 'bg-blue-500 text-white' : ''
-                }`}
+              className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === null ? 'bg-blue-500 text-white' : ''}`}
             >
               All
             </h1>
@@ -53,8 +49,7 @@ const Mainscreen = () => {
                 <div key={index}>
                   <h2
                     onClick={() => setSelectedCategory(category.name)}
-                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''
-                      }`}
+                    className={`font-medium cursor-pointer px-4 py-2 rounded-xl mb-2 ${selectedCategory === category.name ? 'bg-blue-500 text-white' : ''}`}
                   >
                     {category.name}
                   </h2>
@@ -71,12 +66,11 @@ const Mainscreen = () => {
               filteredProducts.map((item) => (
                 <div
                   key={item?.id}
-                  className="bg-white rounded-xl shadow p-3 flex flex-col justify-between hover:shadow-lg transition"
+                  className="bg-white rounded-xl shadow  flex flex-col justify-between hover:shadow-lg transition"
                 >
                   <div
                     className="cursor-pointer"
-                    //  onClick={() => navigate('/cart-details')}
-                 
+                    onClick={() => navigate('/cart-details', { state: { product: item } })}
                   >
                     <Card
                       image={item?.images[0]}
@@ -84,7 +78,7 @@ const Mainscreen = () => {
                       price={item?.price}
                     />
                   </div>
-                  <div className="mt-3">
+                  <div className="py-2 flex justify-center items-center">
                     <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
                   </div>
                 </div>
